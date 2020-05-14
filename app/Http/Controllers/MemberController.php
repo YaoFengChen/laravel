@@ -10,6 +10,11 @@ class MemberController extends Controller
     public function getMember(MemberService $memberService, $id)
     {
         $member = $memberService->getMember($id);
+
+        if (is_null($member)) {
+            abort(404);
+        }
+
         return response()->json([
             'id' => $member->id,
             'source' => $member->source,
