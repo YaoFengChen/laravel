@@ -15,12 +15,13 @@ class MemberController extends Controller
             abort(404);
         }
 
-        return response()->json([
-            'id' => $member->id,
-            'source' => $member->source,
-            'email' => $member->email,
-            'name' => $member->name,
-            'nickname' => $member->nickname,
-        ], 200);
+        return response()->json($member);
+    }
+
+    public function getMembers(Request $request, MemberService $memberService)
+    {
+        $members = $memberService->getMembers($request->get('take', 10));
+
+        return response()->json($members, 200);
     }
 }
