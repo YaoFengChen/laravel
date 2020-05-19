@@ -16,4 +16,17 @@ class MemberRepository
             'nickname',
         ])->find($id);
     }
+
+    public function getMembers($take = 10)
+    {
+        return Members::select([
+            'id',
+            'source',
+            'email',
+            'name',
+            'nickname',
+        ])
+        ->take($take)
+        ->get();
+    }
 }
