@@ -14,3 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/member/{id}', 'MemberController@getMember');
 Route::get('/members', 'MemberController@getMembers');
+
+Route::get('/api/swagger', 'SwaggerController@json');
+Route::get('/swagger', 'SwaggerController@index');
