@@ -5,13 +5,21 @@ namespace App\Http\Controllers;
 use App\Services\MemberService;
 use Illuminate\Http\Request;
 
+/**
+ * @OA\Schema()
+ */
 class MemberController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/member",
-     *     @OA\Response(response="200", description="An example resource")
+     *     path="/member/1",
+     *     summary="取得會員資料",
+     *     @OA\Response(response="200", description="回傳會員資料"),
+     *     @OA\Response(response="404", description="找不到會員")
      * )
+     *
+     * @param MemberService $memberService
+     * @param int $id
      */
     public function getMember(MemberService $memberService, $id)
     {
@@ -27,8 +35,9 @@ class MemberController extends Controller
     /**
      * @OA\Get(
      *     path="/members",
-     *     @OA\Response(response="200", description="An example resource")
+     *     @OA\Response(response="200", description="會員列表 預設 10筆")
      * )
+     *
      */
     public function getMembers(Request $request, MemberService $memberService)
     {
