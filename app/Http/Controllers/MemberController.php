@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\jwt\Facade\JWT;
 use App\Services\MemberService;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,7 @@ class MemberController extends Controller
     /**
      * @OA\Get(
      *     path="/member",
-     *     @OA\Response(response="200", description="An example resource")
+     *     @OA\Response(response="200", description="An example resource"),
      * )
      */
     public function getMember(MemberService $memberService, $id)
@@ -21,7 +22,7 @@ class MemberController extends Controller
             abort(404);
         }
 
-        return response()->json($member);
+        return JWT::response($member);
     }
 
     /**
@@ -34,6 +35,6 @@ class MemberController extends Controller
     {
         $members = $memberService->getMembers($request->get('take', 10));
 
-        return response()->json($members, 200);
+        return JWT::response($members);
     }
 }
