@@ -1,3 +1,12 @@
+**版本更新**
+
+2020/09/11 v1.1
+----
+* 新增 swagger更新
+* 新增 JWT功能
+* 新增 member login token
+----
+
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">
