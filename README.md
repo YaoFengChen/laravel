@@ -1,13 +1,15 @@
 **版本更新**
 
-2020/09/11 v1.1
+2020/09/11 v1.1.2
 ----
 * 新增 swagger更新
 * 新增 JWT功能
 * 新增 member login token
+* symfony 5.0.8 => 5.1.5 高風險問題
+* composer json 版本問題修正
 ----
 
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
