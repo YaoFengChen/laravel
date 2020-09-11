@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => 'jwt'], function () {
-    Route::get('/members', 'MemberController@getMembers');
-});
+//Route::group(['middleware' => 'jwt'], function () {
+//    Route::get('/members', 'MemberController@getMembers');
+//});
 
 Route::post('/login', 'LoginController@login');
 

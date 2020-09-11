@@ -10,8 +10,27 @@ class LoginController extends Controller
     /**
      * @OA\Post(
      *     path="/login",
-     *     @OA\Response(response="200", description="login success"),
-     *     @OA\Response(response="402", description="login failed")
+     *     @OA\Parameter(
+     *     name="token",
+     *     in="query",
+     *     description="JWT token. Ex: xxx.xxx.xxx",
+     *     required=true,
+     *     ),
+     *     @OA\Parameter(
+     *     name="email",
+     *     in="query",
+     *     description="member's email. email is account",
+     *     required=true,
+     *     ),
+     *     @OA\Parameter(
+     *     name="password",
+     *     in="query",
+     *     description="account's password",
+     *     required=true,
+     *     ),
+     *     @OA\Response(response="200", description="login success. it will response a login token in header"),
+     *     @OA\Response(response="402",description="login failed"),
+     *     @OA\Response(response="403",description="csrf token error")
      * )
      *
      * @param LoginRequest $member

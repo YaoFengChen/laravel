@@ -13,8 +13,14 @@ class MemberController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/member/1",
+     *     path="/member/{id}",
      *     summary="取得會員資料",
+     *     @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="member's id",
+     *     required=true,
+     *     ),
      *     @OA\Response(response="200", description="回傳會員資料"),
      *     @OA\Response(response="404", description="找不到會員")
      * )
