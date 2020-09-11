@@ -2,16 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\jwt\Facade\JWT;
 use App\Services\MemberService;
 use Illuminate\Http\Request;
 
+/**
+ * @OA\Schema()
+ */
 class MemberController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/member",
-     *     @OA\Response(response="200", description="An example resource")
+     *     path="/member/{id}",
+     *     summary="取得會員資料",
+     *     @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="member's id",
+     *     required=true,
+     *     ),
+     *     @OA\Response(response="200", description="回傳會員資料"),
+     *     @OA\Response(response="404", description="找不到會員")
      * )
+     *
+     * @param MemberService $memberService
+     * @param int $id
      */
     public function getMember(MemberService $memberService, $id)
     {
@@ -21,19 +36,20 @@ class MemberController extends Controller
             abort(404);
         }
 
-        return response()->json($member);
+        return JWT::response($member);
     }
 
     /**
      * @OA\Get(
      *     path="/members",
-     *     @OA\Response(response="200", description="An example resource")
+     *     @OA\Response(response="200", description="會員列表 預設 10筆")
      * )
+     *
      */
     public function getMembers(Request $request, MemberService $memberService)
     {
         $members = $memberService->getMembers($request->get('take', 10));
 
-        return response()->json($members, 200);
+        return JWT::response($members);
     }
 }
