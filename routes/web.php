@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Services\jwt\Facade\JWT;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 //Route::group(['middleware' => 'jwt'], function () {
 //    Route::get('/members', 'MemberController@getMembers');
 //});
+
+Route::get('token', function() {
+    return JWT::response();
+});
 
 Route::post('/login', 'LoginController@login');
 
