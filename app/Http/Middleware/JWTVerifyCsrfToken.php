@@ -13,7 +13,7 @@ class JWTVerifyCsrfToken
             return $next($request);
         }
 
-        return JWT::response(403);
+        return JWT::response(419);
     }
 
     private function check($request)

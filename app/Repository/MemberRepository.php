@@ -6,7 +6,7 @@ use App\Entities\Members;
 
 class MemberRepository
 {
-    public function getMember($id)
+    public function getMemberWithId($id)
     {
         return Members::select([
             'id',
@@ -26,7 +26,14 @@ class MemberRepository
             'name',
             'nickname',
         ])
-        ->take($take)
-        ->get();
+            ->take($take)
+            ->get();
+    }
+
+    public function getMemberWithSourceRegister($email)
+    {
+        return Members::where('email', $email)
+            ->where('source', Members::SOURCE_REGISTER)
+            ->get();
     }
 }

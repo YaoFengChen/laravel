@@ -26,5 +26,9 @@ class Controller extends BaseController
      *     in="header",
      *     description="JWT token. Ex: bearer xxx.xxx.xxx",
      * ),
+     * @OA\get(
+     *     path="/token",
+     *     @OA\Response(response="200", description="it will response a token in header"),
+     * )
      */
 }

@@ -10,6 +10,11 @@ class Members extends Auth implements JWTSubject
 {
     use Notifiable;
 
+    const SOURCE_REGISTER = 1;
+    const SOURCE_GOOGLE = 1;
+    const SOURCE_FACEBOOK = 2;
+
+
     /**
      * The attributes that are mass assignable.
      *
