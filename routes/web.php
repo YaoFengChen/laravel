@@ -27,7 +27,7 @@ Route::post('/login', 'LoginController@login');
 Route::get('/member/{id}', 'MemberController@getMember');
 Route::get('/members', 'MemberController@getMembers');
 
-Route::post('/member', 'MemberController@addMember');
+Route::post('/register', 'MemberController@registerMember');
 
 Route::get('/api/swagger', 'SwaggerController@json');
 Route::get('/swagger', 'SwaggerController@index');
