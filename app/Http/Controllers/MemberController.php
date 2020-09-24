@@ -89,7 +89,9 @@ class MemberController extends Controller
      * @param MemberService $memberService
      * @return mixed
      */
+
     public function registerMember(AddMemberRequest $member, MemberService $memberService)
+
     {
         try {
             $memberService->addMember($member);

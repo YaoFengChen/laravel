@@ -80,6 +80,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 **版本更新**
 
+
 2020/09/24 v1.2.1
 ----
 * token response會加上 header Access-Control-Expose_Headers
