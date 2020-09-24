@@ -11,12 +11,6 @@ class LoginController extends Controller
      * @OA\Post(
      *     path="/login",
      *     @OA\Parameter(
-     *     name="token",
-     *     in="query",
-     *     description="JWT token. Ex: xxx.xxx.xxx",
-     *     required=true,
-     *     ),
-     *     @OA\Parameter(
      *     name="email",
      *     in="query",
      *     description="member's email. email is account",

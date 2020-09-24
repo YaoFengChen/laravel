@@ -50,6 +50,8 @@ class JWT
 
         return response()
             ->json($data, $code)
-            ->header('authorization', 'bearer ' . $this->getToken());
+            ->header('Authorization', 'Bearer ' . $this->getToken())
+            ->header('Access-Control-Expose_Headers', 'Authorization')
+            ->header('Access-Control-Allow-Origin', '*');
     }
 }
