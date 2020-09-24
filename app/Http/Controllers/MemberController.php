@@ -62,13 +62,7 @@ class MemberController extends Controller
 
     /**
      * @OA\post(
-     *     path="/member",
-     *     @OA\Parameter(
-     *     name="token",
-     *     in="query",
-     *     description="JWT token. Ex: xxx.xxx.xxx",
-     *     required=true,
-     *     ),
+     *     path="/register",
      *     @OA\Parameter(
      *     name="email",
      *     in="query",
@@ -95,7 +89,9 @@ class MemberController extends Controller
      * @param MemberService $memberService
      * @return mixed
      */
-    public function addMember(AddMemberRequest $member, MemberService $memberService)
+
+    public function registerMember(AddMemberRequest $member, MemberService $memberService)
+
     {
         try {
             $memberService->addMember($member);
