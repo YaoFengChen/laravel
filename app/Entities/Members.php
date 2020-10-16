@@ -2,6 +2,8 @@
 
 namespace App\Entities;
 
+use Database\Factories\MembersFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Auth;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -10,9 +12,11 @@ class Members extends Auth implements JWTSubject
 {
     use Notifiable;
 
+    use HasFactory;
+
     const SOURCE_REGISTER = 1;
-    const SOURCE_GOOGLE = 1;
-    const SOURCE_FACEBOOK = 2;
+    const SOURCE_GOOGLE = 2;
+    const SOURCE_FACEBOOK = 3;
 
 
     /**
@@ -50,5 +54,10 @@ class Members extends Auth implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    protected static function newFactory()
+    {
+        return new MembersFactory();
     }
 }
