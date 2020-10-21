@@ -91,7 +91,6 @@ class MemberController extends Controller
      */
 
     public function registerMember(AddMemberRequest $member, MemberService $memberService)
-
     {
         try {
             $memberService->addMember($member);
