@@ -22,13 +22,9 @@ class Controller extends BaseController
      * @OA\SecurityScheme(
      * securityScheme="http",
      *     type="apiKey",
-     *     name="authorization",
-     *     in="header",
+     *     name="token",
+     *     in="query",
      *     description="JWT token. Ex: bearer xxx.xxx.xxx",
-     * ),
-     * @OA\get(
-     *     path="/token",
-     *     @OA\Response(response="200", description="it will response a token in header"),
      * )
      */
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
-use App\Services\jwt\Facade\JWT;
 
 class LoginController extends Controller
 {
@@ -32,14 +31,10 @@ class LoginController extends Controller
      */
     public function login(LoginRequest $member)
     {
-        if (auth('api')->user()) {
-            return JWT::response();
+        if ($token = auth('api')->attempt($member->only(['email', 'password']))) {
+            return response()->json(['token' => $token]);
         }
 
-        if (auth('api')->attempt($member->only(['email', 'password']))) {
-            return JWT::response();
-        }
-
-        return JWT::response(402);
+        return response()->json([], 401);
     }
 }
