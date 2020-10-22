@@ -4,20 +4,21 @@ namespace App\Http\Middleware;
 
 use App\Services\jwt\Facade\JWT;
 use Closure;
+use Illuminate\Http\Request;
 
 class JWTAuthenticate
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         if (!auth('api')->user()) {
-            return JWT::response(402);
+            return response()->json([], 402);
         }
 
         return $next($request);

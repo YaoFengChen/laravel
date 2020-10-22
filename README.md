@@ -80,6 +80,10 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 **版本更新**
 
+2020/10/21 v2.0.0
+---
+更新資訊移至 master log commit
+---
 
 2020/09/24 v1.2.1
 ----
