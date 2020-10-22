@@ -25,9 +25,7 @@ class MemberRepository
             'email',
             'name',
             'nickname',
-        ])
-            ->take($take)
-            ->get();
+        ])->paginate($take);
     }
 
     public function getMemberWithSourceRegister($email)

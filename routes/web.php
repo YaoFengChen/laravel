@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Services\jwt\Facade\JWT;
+use App\Http\Controllers\SwaggerController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,20 +16,14 @@ use App\Services\jwt\Facade\JWT;
 |
 */
 
-//Route::group(['middleware' => 'jwt'], function () {
-//    Route::get('/members', 'MemberController@getMembers');
-//});
-
-Route::get('token', function() {
-    return JWT::response();
+Route::group(['middleware' => 'jwt'], function () {
+    Route::get('/member/{id}', [MemberController::class, 'getMember']);
+    Route::get('/members', [MemberController::class, 'getMembers']);
 });
 
-Route::post('/login', 'LoginController@login');
+Route::post('/member', [MemberController::class, 'addMember']);
 
-Route::get('/member/{id}', 'MemberController@getMember');
-Route::get('/members', 'MemberController@getMembers');
+Route::post('/login', [LoginController::class, 'login']);
 
-Route::post('/register', 'MemberController@registerMember');
-
-Route::get('/api/swagger', 'SwaggerController@json');
-Route::get('/swagger', 'SwaggerController@index');
+Route::get('/api/swagger', [SwaggerController::class, 'json']);
+Route::get('/swagger', [SwaggerController::class, 'index']);

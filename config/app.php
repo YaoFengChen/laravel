@@ -178,7 +178,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        App\Services\jwt\Provider\JWTProvider::class,
     ],
 
     /*
@@ -230,8 +229,5 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
-        'JWT' => App\Services\jwt\Facade\JWT::class,
     ],
-
 ];

@@ -26,6 +26,9 @@ class AlterAuthMember extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('members', function (Blueprint $table) {
+            $table->dropRememberToken();
+            $table->dropColumn('email_verified_at');
+        });
     }
 }
