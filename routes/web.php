@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SwaggerController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,10 @@ use App\Http\Controllers\LoginController;
 Route::group(['middleware' => 'jwt'], function () {
     Route::get('/member/{id}', [MemberController::class, 'getMember']);
     Route::get('/members', [MemberController::class, 'getMembers']);
+
+    Route::get('/profile', [ProfileController::class, 'getProfile']);
+
+    Route::get('/logout', [LoginController::class, 'logout']);
 });
 
 Route::post('/member', [MemberController::class, 'addMember']);
