@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Services\jwt\Facade\JWT;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -17,10 +16,15 @@ class JWTAuthenticate
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!auth('api')->user()) {
-            return response()->json([], 402);
+        if (auth('api')->check()) {
+            return $next($request);
         }
 
-        return $next($request);
+        return $this->unauthorized();
+    }
+
+    private function unauthorized()
+    {
+        return response()->json([], 402);
     }
 }

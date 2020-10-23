@@ -52,6 +52,7 @@ class MemberController extends Controller
     /**
      * @OA\Get(
      *     path="/members",
+     *     summary="取得會員列表",
      *     @OA\Parameter(
      *     name="token",
      *     in="query",
@@ -86,6 +87,7 @@ class MemberController extends Controller
     /**
      * @OA\post(
      *     path="/member",
+     *     summary="新增會員",
      *     @OA\Parameter(
      *     name="email",
      *     in="query",
