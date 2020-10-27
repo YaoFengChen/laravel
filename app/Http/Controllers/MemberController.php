@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\MemberException;
 use App\Http\Requests\AddMemberRequest;
 use App\Services\MemberService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 /**
  * @OA\Schema()
@@ -116,15 +114,12 @@ class MemberController extends Controller
      */
     public function addMember(AddMemberRequest $member, MemberService $memberService)
     {
-        try {
-            $memberService->addMember($member);
-            return response()->json([]);
-        } catch (MemberException $e) {
-            return response()->json([], 203);
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-            Log::error($e);
-            return response()->json([], 500);
+        $memberService->addMember($member);
+
+        if ($token = auth('api')->attempt($member->only(['email', 'password']))) {
+            return response()->json(['token' => $token]);
         }
+
+        return response()->json([], 500);
     }
 }
