@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Entities\Members;
+use App\Model\Members;
 use App\Exceptions\MemberException;
 use App\Repository\MemberRepository;
 use Illuminate\Support\Facades\Hash;

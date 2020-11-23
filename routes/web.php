@@ -5,6 +5,7 @@ use App\Http\Controllers\SwaggerController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,8 +23,12 @@ Route::group(['middleware' => 'jwt'], function () {
     Route::get('/members', [MemberController::class, 'getMembers']);
 
     Route::get('/profile', [ProfileController::class, 'getProfile']);
-
     Route::get('/logout', [LoginController::class, 'logout']);
+
+    Route::get('/file/{name}', [FileController::class, 'downloadFile']);
+    Route::post('/file', [FileController::class, 'saveFile']);
+    Route::get('/files', [FileController::class, 'getFiles']);
+    Route::delete('/file/{name}', [FileController::class, 'deleteFile']);
 });
 
 Route::post('/member', [MemberController::class, 'addMember']);

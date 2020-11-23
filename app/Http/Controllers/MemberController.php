@@ -118,11 +118,9 @@ class MemberController extends Controller
     {
         try {
             $memberService->addMember($member);
-            return response()->json([]);
         } catch (MemberException $e) {
             return response()->json([], 203);
         } catch (\Exception $e) {
-            echo $e->getMessage();
             Log::error($e);
             return response()->json([], 500);
         }
