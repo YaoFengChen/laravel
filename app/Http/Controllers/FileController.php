@@ -58,7 +58,7 @@ class FileController extends Controller
 
     /**
      * @OA\get(
-     *     path="/file",
+     *     path="/files",
      *     summary="取得檔案列表",
      *     @OA\Parameter(
      *     name="token",
@@ -93,7 +93,7 @@ class FileController extends Controller
      *     description="jwt token",
      *     required=true,
      *     ),
-     *     @OA\Response(response="200", description="成功取得檔案列表"),
+     *     @OA\Response(response="200", description="下載檔案"),
      *     @OA\Response(response="500", description="未預期錯誤")
      * )
      *
@@ -124,7 +124,6 @@ class FileController extends Controller
     }
 
     /**
-     *
      * @OA\delete(
      *     path="/file/{id}",
      *     summary="移除檔案",
@@ -143,6 +142,7 @@ class FileController extends Controller
      *     @OA\Response(response="200", description="成功移除檔案"),
      *     @OA\Response(response="500", description="未預期錯誤")
      * )
+     *
      * @param $id
      * @param FileService $fileService
      * @return JsonResponse | void
