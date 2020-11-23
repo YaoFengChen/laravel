@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entities\Members;
+use App\Model\Members;
 
 class MemberRepository
 {

@@ -9,6 +9,7 @@ class LoginController extends Controller
     /**
      * @OA\Post(
      *     path="/login",
+     *     summary="登入取得 token",
      *     @OA\Parameter(
      *     name="email",
      *     in="query",
@@ -36,5 +37,28 @@ class LoginController extends Controller
         }
 
         return response()->json([], 401);
+    }
+
+    /**
+     * @OA\get(
+     *     path="/logout",
+     *     summary="註銷 token",
+     *     @OA\Parameter(
+     *     name="token",
+     *     in="query",
+     *     description="jwt token",
+     *     required=true,
+     *     ),
+     *     @OA\Response(response="200", description="logout success. invalidate token."),
+     *     @OA\Response(response="402",description="error token"),
+     * )
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function logout()
+    {
+        auth('api')->logout();
+
+        return response()->json([]);
     }
 }

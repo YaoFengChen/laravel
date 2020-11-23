@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(\App\Entities\Members::class, function (Faker $faker) {
+$factory->define(\App\Model\Members::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,

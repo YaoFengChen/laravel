@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Entities\Members;
+use App\Model\Members;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 

@@ -52,6 +52,7 @@ class MemberController extends Controller
     /**
      * @OA\Get(
      *     path="/members",
+     *     summary="取得會員列表",
      *     @OA\Parameter(
      *     name="token",
      *     in="query",
@@ -86,6 +87,7 @@ class MemberController extends Controller
     /**
      * @OA\post(
      *     path="/member",
+     *     summary="新增會員",
      *     @OA\Parameter(
      *     name="email",
      *     in="query",
@@ -116,11 +118,9 @@ class MemberController extends Controller
     {
         try {
             $memberService->addMember($member);
-            return response()->json([]);
         } catch (MemberException $e) {
             return response()->json([], 203);
         } catch (\Exception $e) {
-            echo $e->getMessage();
             Log::error($e);
             return response()->json([], 500);
         }
