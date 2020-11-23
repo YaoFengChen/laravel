@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use function OpenApi\scan;
 
 class SwaggerController extends Controller
@@ -16,7 +15,7 @@ class SwaggerController extends Controller
 
     public function index()
     {
-        return view('swagger/swagger');
+        return view('swagger.swagger');
     }
 
     //

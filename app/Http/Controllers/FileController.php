@@ -13,7 +13,7 @@ class FileController extends Controller
 {
     /**
      * @OA\post(
-     *     path="/file"
+     *     path="/file",
      *     summary="儲存檔案",
      *     @OA\RequestBody(
      *         @OA\MediaType(
