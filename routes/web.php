@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SwaggerController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\FileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,11 @@ use App\Http\Controllers\LoginController;
 Route::group(['middleware' => 'jwt'], function () {
     Route::get('/member/{id}', [MemberController::class, 'getMember']);
     Route::get('/members', [MemberController::class, 'getMembers']);
+
+    Route::get('/file/{name}', [FileController::class, 'downloadFile']);
+    Route::post('/file', [FileController::class, 'saveFile']);
+    Route::get('/files', [FileController::class, 'getFiles']);
+    Route::delete('/file/{name}', [FileController::class, 'deleteFile']);
 });
 
 Route::post('/member', [MemberController::class, 'addMember']);

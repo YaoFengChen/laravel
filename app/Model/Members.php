@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entities;
+namespace App\Model;
 
 use Database\Factories\MembersFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
