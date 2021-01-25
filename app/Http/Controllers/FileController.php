@@ -25,7 +25,8 @@ class FileController extends Controller
      *                         @OA\Property(
      *                             description="the file what you want to upload",
      *                             property="file",
-     *                             type="string", format="binary"
+     *                             type="string",
+     *                             format="binary",
      *                         )
      *                     )
      *                 }
@@ -43,14 +44,14 @@ class FileController extends Controller
      * )
      *
      * @param Request $request
-     * @return JsonResponse | void
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response | void
      */
     public function saveFile(Request $request)
     {
         $fileName = Storage::put('a1', $request->file('file'));
 
         if (!is_string($fileName)) {
-            return response()->json([], 500);
+            return response('', 500);
         }
 
         Files::create(['name' => $fileName]);
@@ -107,7 +108,7 @@ class FileController extends Controller
         $file = $fileService->getFile($id);
 
         if (is_null($file)) {
-            return response()->json([], 404);
+            return response('', 404);
         }
 
         return response()->make(
@@ -145,18 +146,18 @@ class FileController extends Controller
      *
      * @param $id
      * @param FileService $fileService
-     * @return JsonResponse | void
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|void
      */
     public function deleteFile($id, FileService $fileService)
     {
         $file = $fileService->getFile($id);
 
         if (is_null($file)) {
-            return response()->json([], 404);
+            return response('', 404);
         }
 
         if (!Storage::delete($file->name)) {
-            return response()->json([], 500);
+            return response('', 500);
         }
 
         Files::destroy($id);
