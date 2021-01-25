@@ -28,10 +28,10 @@ class MemberRepository
         ])->paginate($take);
     }
 
-    public function getMemberWithSourceRegister($email)
+    public function getMemberWithSource($email, $source)
     {
         return Members::where('email', $email)
-            ->where('source', Members::SOURCE_REGISTER)
-            ->get();
+            ->where('source', $source)
+            ->first();
     }
 }

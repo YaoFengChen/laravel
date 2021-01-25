@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ThirdLoginRequest;
 use App\Http\Requests\LoginRequest;
+use App\Services\LoginService\LoginManager;
+use App\Services\LoginService\LoginService;
 
 class LoginController extends Controller
 {
@@ -28,15 +31,21 @@ class LoginController extends Controller
      * )
      *
      * @param LoginRequest $member
+     * @param LoginManager $loginManager
      * @return mixed
      */
-    public function login(LoginRequest $member)
+    public function login(LoginRequest $member, LoginManager $loginManager)
     {
-        if ($token = auth('api')->attempt($member->only(['email', 'password']))) {
+        /**
+         * @method LoginService login
+         */
+        $token = $loginManager->login($member);
+
+        if ($token) {
             return response()->json(['token' => $token]);
         }
 
-        return response()->json([], 401);
+        return response('', 402);
     }
 
     /**
@@ -53,12 +62,51 @@ class LoginController extends Controller
      *     @OA\Response(response="402",description="error token"),
      * )
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return void
      */
     public function logout()
     {
         auth('api')->logout();
+    }
 
-        return response()->json([]);
+    /**
+     * @OA\post(
+     *     path="/google/login",
+     *     summary="google 登入",
+     *     @OA\Parameter(
+     *     name="email",
+     *     in="query",
+     *     description="email",
+     *     required=true,
+     *     ),
+     *     @OA\Parameter(
+     *     name="name",
+     *     in="query",
+     *     description="name",
+     *     ),
+     *     @OA\Parameter(
+     *     name="token",
+     *     in="query",
+     *     description="google's token",
+     *     required=true,
+     *     ),
+     *     @OA\Response(response="200", description="login success"),
+     *     @OA\Response(response="402",description="error token"),
+     * )
+     * @param ThirdLoginRequest $member
+     * @param LoginManager $loginManager
+     *
+     * @param $thirdService
+     * @return mixed
+     */
+    public function thirdLogin(ThirdLoginRequest $member, LoginManager $loginManager, $thirdService)
+    {
+        $token = $loginManager->thirdService($thirdService)->login($member);
+
+        if ($token) {
+            return response()->json(['token' => $token]);
+        }
+
+        return response('', 402);
     }
 }

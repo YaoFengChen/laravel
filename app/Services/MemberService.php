@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Model\Members;
 use App\Exceptions\MemberException;
 use App\Repository\MemberRepository;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class MemberService
@@ -38,27 +40,47 @@ class MemberService
         return $this->member->getMembers($take);
     }
 
-    /**
-     * @param $registerMember
-     * @throws MemberException
-     * @throws \Exception
-     */
-    public function addMember($registerMember)
+    public function getGoogleMember($member)
     {
-        $members = $this->member->getMemberWithSourceRegister($registerMember->get('email'));
+        $existMember = $this->member->getMemberWithSource($member->get('email'), Members::SOURCE_GOOGLE);
 
-        if ($members->count() > 0) {
+        if (!empty($existMember)) {
+            return $existMember;
+        }
+
+        return $this->addMember($member, Members::SOURCE_GOOGLE);
+    }
+
+    public function addNormalMember($member)
+    {
+        $members = $this->member->getMemberWithSource($member->get('email'), Members::SOURCE_REGISTER);
+
+        if (!is_null($members)) {
             throw new MemberException('會員已存在');
         }
 
+        $this->addMember($member, Members::SOURCE_REGISTER);
+    }
+
+    /**
+     * @param Request $registerMember
+     * @param $source
+     * @throws \Exception
+     * @return Model
+     */
+    private function addMember(Request $registerMember, $source)
+    {
         $newMember = new Members;
         $newMember->email = $registerMember->get('email');
-        $newMember->source = Members::SOURCE_REGISTER;
-        $newMember->password = Hash::make($registerMember->get('password'));
+        $newMember->source = $source;
         $newMember->name = $registerMember->get('name', '');
         $newMember->nickname = $registerMember->get('name', '');
+        $newMember->password = Hash::make($registerMember->get('password', rand(0, 999)));
+
         if (!$newMember->save()) {
             throw new \Exception('未預期錯誤');
         }
+
+        return $newMember;
     }
 }
