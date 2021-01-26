@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\MemberException;
 use App\Http\Requests\AddMemberRequest;
+use App\Http\Requests\EditMemberRequest;
+use App\Model\Members;
 use App\Services\MemberService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -43,7 +45,7 @@ class MemberController extends Controller
         $member = $memberService->getMember($id);
 
         if (is_null($member)) {
-            return response()->json([], 404);
+            return response('', 404);
         }
 
         return response()->json($member);
@@ -112,17 +114,55 @@ class MemberController extends Controller
      * )
      * @param AddMemberRequest $member
      * @param MemberService $memberService
-     * @return mixed
+     * @return mixed | void
      */
     public function addMember(AddMemberRequest $member, MemberService $memberService)
     {
         try {
-            $memberService->addMember($member);
+            $memberService->addNormalMember($member);
         } catch (MemberException $e) {
-            return response()->json([], 203);
+            return response('', 203);
         } catch (\Exception $e) {
-            Log::error($e);
-            return response()->json([], 500);
+            return response('', 500);
+        }
+    }
+
+    /**
+     * @OA\put(
+     *     path="/member",
+     *     summary="編輯會員",
+     *     @OA\Parameter(
+     *     name="name",
+     *     in="query",
+     *     description="member's name",
+     *     ),
+     *     @OA\Parameter(
+     *     name="nickname",
+     *     in="query",
+     *     description="member's nickname",
+     *     ),
+     *     @OA\Parameter(
+     *     name="token",
+     *     in="query",
+     *     description="jwt token",
+     *     required=true,
+     *     ),
+     *     @OA\Response(response="200", description="編輯成功"),
+     *     @OA\Response(response="500", description="未預期錯誤")
+     * )
+     *
+     * @param EditMemberRequest $updateMember
+     * @return void
+     * @throws \Exception
+     */
+    public function editMember(EditMemberRequest $updateMember)
+    {
+        $member = auth('api')->user();
+
+        $member->name = $updateMember->get('name', $member->name);
+        $member->nickname = $updateMember->get('nickname', $member->nickname);
+        if (!$member->save()) {
+            throw new \Exception('未預期錯誤');
         }
     }
 }

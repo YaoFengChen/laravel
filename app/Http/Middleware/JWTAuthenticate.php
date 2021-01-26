@@ -25,6 +25,6 @@ class JWTAuthenticate
 
     private function unauthorized()
     {
-        return response()->json([], 402);
+        return response('', 402);
     }
 }

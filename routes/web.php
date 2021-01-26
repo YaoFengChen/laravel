@@ -21,6 +21,7 @@ use App\Http\Controllers\FileController;
 Route::group(['middleware' => 'jwt'], function () {
     Route::get('/member/{id}', [MemberController::class, 'getMember']);
     Route::get('/members', [MemberController::class, 'getMembers']);
+    Route::put('/member', [MemberController::class, 'editMember']);
 
     Route::get('/profile', [ProfileController::class, 'getProfile']);
     Route::get('/logout', [LoginController::class, 'logout']);
@@ -34,6 +35,8 @@ Route::group(['middleware' => 'jwt'], function () {
 Route::post('/member', [MemberController::class, 'addMember']);
 
 Route::post('/login', [LoginController::class, 'login']);
+Route::post('/{thirdService}/login', [LoginController::class, 'thirdLogin'])
+    ->where('thirdService', 'google');
 
 Route::get('/api/swagger', [SwaggerController::class, 'json']);
 Route::get('/swagger', [SwaggerController::class, 'index']);
