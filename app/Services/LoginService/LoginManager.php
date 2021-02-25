@@ -18,8 +18,13 @@ class LoginManager extends Manager
         return App::make(GoogleService::class);
     }
 
-    public function getDefaultDriver()
+    public function createNormalDriver()
     {
         return App::make(LoginService::class);
+    }
+
+    public function getDefaultDriver()
+    {
+        return 'normal';
     }
 }
