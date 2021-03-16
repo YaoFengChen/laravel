@@ -9,6 +9,10 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * Class FileController
+ * @package App\Http\Controllers
+ */
 class FileController extends Controller
 {
     /**
@@ -20,7 +24,6 @@ class FileController extends Controller
      *             mediaType="multipart/form-data",
      *             @OA\Schema(
      *                 allOf={
-     *                     @OA\Schema(ref="#components/schemas/item"),
      *                     @OA\Schema(
      *                         @OA\Property(
      *                             description="the file what you want to upload",
@@ -34,12 +37,21 @@ class FileController extends Controller
      *         )
      *     ),
      *     @OA\Parameter(
-     *     name="token",
-     *     in="query",
-     *     description="jwt token",
-     *     required=true,
+     *          name="token",
+     *          in="query",
+     *          description="jwt token",
+     *          required=true,
      *     ),
-     *     @OA\Response(response="200", description="檔案上傳成功"),
+     *     @OA\Response(
+     *          response="200",
+     *          description="檔案上傳成功",
+     *          @OA\Schema(
+     *              type="string",
+     *              @OA\Items(
+     *                  ref="#/components/schemas/response/success"
+     *              )
+     *          )
+     *     ),
      *     @OA\Response(response="500", description="未預期錯誤")
      * )
      *
