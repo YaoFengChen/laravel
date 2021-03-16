@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SwaggerController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
@@ -37,6 +36,3 @@ Route::post('/member', [MemberController::class, 'addMember']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/{thirdService}/login', [LoginController::class, 'thirdLogin'])
     ->where('thirdService', 'google');
-
-Route::get('/api/swagger', [SwaggerController::class, 'json']);
-Route::get('/swagger', [SwaggerController::class, 'index']);
