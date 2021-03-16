@@ -5,31 +5,30 @@ namespace App\Http\Controllers;
 use App\Exceptions\MemberException;
 use App\Http\Requests\AddMemberRequest;
 use App\Http\Requests\EditMemberRequest;
-use App\Model\Members;
 use App\Services\MemberService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
-/**
- * @OA\Schema()
- */
 class MemberController extends Controller
 {
     /**
      * @OA\Get(
      *     path="/member/{id}",
      *     summary="取得會員資料",
+     *     description="login by account and password",
+     *     operationId="authLogin",
+     *     tags={"auth"},
+     *     security={ {"bearer": {} }},
      *     @OA\Parameter(
-     *     name="token",
-     *     in="query",
-     *     description="jwt token",
-     *     required=true,
+     *         name="token",
+     *         in="query",
+     *         description="jwt token",
+     *         required=true,
      *     ),
      *     @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="member's id",
-     *     required=true,
+     *         name="id",
+     *         in="path",
+     *         description="member's id",
+     *         required=true,
      *     ),
      *     @OA\Response(response="200", description="回傳會員資料"),
      *     @OA\Response(response="402", description="授權失敗"),
