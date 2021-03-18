@@ -1,0 +1,424 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "laravel 實驗場",
+        "description": "這是實驗各種新功能的 api, 架設於 aws. 採用 `swoole`、jwt、swagger, 環境 php73 mysql8 redis nginx(proxy to swoole). [#url test, url test](http://google.com)",
+        "termsOfService": "http://google.com",
+        "contact": {
+            "email": "guy414548@gamil.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://zh.wikipedia.org/wiki/MIT%E8%A8%B1%E5%8F%AF%E8%AD%89"
+        },
+        "version": "2.2.3"
+    },
+    "servers": [
+        {
+            "url": "http://18.190.3.152:8080",
+            "description": "apache"
+        },
+        {
+            "url": "http://18.190.3.152",
+            "description": "nginx - swoole"
+        },
+        {
+            "url": "http://localhost:8888",
+            "description": "localhost"
+        }
+    ],
+    "paths": {
+        "/file": {
+            "post": {
+                "tags": [
+                    "file"
+                ],
+                "summary": "儲存檔案",
+                "operationId": "App\\Http\\Controllers\\FileController::saveFile",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "file": {
+                                                "description": "the file what you want to upload",
+                                                "type": "string",
+                                                "format": "binary"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "檔案上傳成功"
+                    },
+                    "500": {
+                        "description": "未預期錯誤"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/files": {
+            "get": {
+                "tags": [
+                    "file"
+                ],
+                "summary": "取得檔案列表",
+                "operationId": "App\\Http\\Controllers\\FileController::getFiles",
+                "responses": {
+                    "200": {
+                        "description": "成功取得檔案列表"
+                    },
+                    "500": {
+                        "description": "未預期錯誤"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/file/{id}": {
+            "get": {
+                "tags": [
+                    "file"
+                ],
+                "summary": "下載檔案",
+                "operationId": "App\\Http\\Controllers\\FileController::downloadFile",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "file id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "下載檔案"
+                    },
+                    "500": {
+                        "description": "未預期錯誤"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "file"
+                ],
+                "summary": "移除檔案",
+                "operationId": "App\\Http\\Controllers\\FileController::deleteFile",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "file id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功移除檔案"
+                    },
+                    "500": {
+                        "description": "未預期錯誤"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "登入取得 token",
+                "operationId": "App\\Http\\Controllers\\LoginController::login",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "member's email. email is account",
+                        "required": true
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "account's password",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "login success. it will response a login token in header"
+                    },
+                    "402": {
+                        "description": "login failed"
+                    },
+                    "403": {
+                        "description": "csrf token error"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "註銷 token",
+                "operationId": "App\\Http\\Controllers\\LoginController::logout",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "jwt token",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "logout success. invalidate token."
+                    },
+                    "402": {
+                        "description": "error token"
+                    }
+                }
+            }
+        },
+        "/google/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "google 登入",
+                "operationId": "App\\Http\\Controllers\\LoginController::thirdLogin",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "email",
+                        "required": true
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name"
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "google's token",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "login success"
+                    },
+                    "402": {
+                        "description": "error token"
+                    }
+                }
+            }
+        },
+        "/member/{id}": {
+            "get": {
+                "tags": [
+                    "member"
+                ],
+                "summary": "取得會員資料",
+                "description": "login by account and password",
+                "operationId": "authLogin",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "member's id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "回傳會員資料"
+                    },
+                    "402": {
+                        "description": "授權失敗"
+                    },
+                    "404": {
+                        "description": "找不到會員"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/members": {
+            "get": {
+                "tags": [
+                    "member"
+                ],
+                "summary": "取得會員列表",
+                "operationId": "App\\Http\\Controllers\\MemberController::getMembers",
+                "parameters": [
+                    {
+                        "name": "take",
+                        "in": "query",
+                        "description": "page size. default 10."
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page. default 1."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "會員列表 預設 10筆"
+                    },
+                    "402": {
+                        "description": "授權失敗"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/member": {
+            "put": {
+                "tags": [
+                    "member"
+                ],
+                "summary": "編輯會員",
+                "operationId": "App\\Http\\Controllers\\MemberController::editMember",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "member's name"
+                    },
+                    {
+                        "name": "nickname",
+                        "in": "query",
+                        "description": "member's nickname"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "編輯成功"
+                    },
+                    "500": {
+                        "description": "未預期錯誤"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "member"
+                ],
+                "summary": "新增會員",
+                "operationId": "App\\Http\\Controllers\\MemberController::addMember",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "email is account and unique email",
+                        "required": true
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "password",
+                        "required": true
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "it is account's name",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "會員新增成功"
+                    },
+                    "203": {
+                        "description": "會員已存在"
+                    },
+                    "500": {
+                        "description": "未預期錯誤"
+                    }
+                }
+            }
+        },
+        "/profile": {
+            "get": {
+                "tags": [
+                    "member"
+                ],
+                "summary": "取得登入的個人資料",
+                "operationId": "App\\Http\\Controllers\\ProfileController::getProfile",
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    },
+                    "402": {
+                        "description": "授權失敗"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "Authorization": {
+                "type": "apiKey",
+                "description": "JWT token. 前面要補上 bearer. Ex: bearer hhh.ppp.sss",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
