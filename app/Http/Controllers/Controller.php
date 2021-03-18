@@ -23,11 +23,23 @@ class Controller extends BaseController
      *     license={"name":"MIT","url":"https://zh.wikipedia.org/wiki/MIT%E8%A8%B1%E5%8F%AF%E8%AD%89"},
      * ),
      * @OA\SecurityScheme(
-     *     securityScheme="http",
+     *     securityScheme="Authorization",
      *     type="apiKey",
-     *     name="bearer",
-     *     in="query",
-     *     description="JWT token. Ex: bearer xxx.xxx.xxx",
+     *     name="Authorization",
+     *     in="header",
+     *     description="JWT token. 前面要補上 bearer. Ex: bearer hhh.ppp.sss",
+     * ),
+     * @OA\Server(
+     *     url="http://18.190.3.152:8080",
+     *     description="apache"
+     * ),
+     * @OA\Server(
+     *     url="http://18.190.3.152",
+     *     description="nginx - swoole"
+     * ),
+     * @OA\Server(
+     *     url="http://localhost:8888",
+     *     description="localhost"
      * )
      */
 }
