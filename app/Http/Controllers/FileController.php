@@ -19,6 +19,8 @@ class FileController extends Controller
      * @OA\post(
      *     path="/file",
      *     summary="儲存檔案",
+     *     tags={"file"},
+     *     security={ {"Authorization": {} }},
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="multipart/form-data",
@@ -36,20 +38,11 @@ class FileController extends Controller
      *             )
      *         )
      *     ),
-     *     @OA\Parameter(
-     *          name="token",
-     *          in="query",
-     *          description="jwt token",
-     *          required=true,
-     *     ),
      *     @OA\Response(
      *          response="200",
      *          description="檔案上傳成功",
      *          @OA\Schema(
-     *              type="string",
-     *              @OA\Items(
-     *                  ref="#/components/schemas/response/success"
-     *              )
+     *              type="string"
      *          )
      *     ),
      *     @OA\Response(response="500", description="未預期錯誤")
@@ -73,13 +66,12 @@ class FileController extends Controller
      * @OA\get(
      *     path="/files",
      *     summary="取得檔案列表",
-     *     @OA\Parameter(
-     *     name="token",
-     *     in="query",
-     *     description="jwt token",
-     *     required=true,
+     *     tags={"file"},
+     *     security={ {"Authorization": {} }},
+     *     @OA\Response(
+     *          response="200",
+     *          description="成功取得檔案列表"
      *     ),
-     *     @OA\Response(response="200", description="成功取得檔案列表"),
      *     @OA\Response(response="500", description="未預期錯誤")
      * )
      *
@@ -94,17 +86,13 @@ class FileController extends Controller
      * @OA\get(
      *     path="/file/{id}",
      *     summary="下載檔案",
+     *     tags={"file"},
+     *     security={ {"Authorization": {} }},
      *     @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="file id",
-     *     required=true,
-     *     ),
-     *     @OA\Parameter(
-     *     name="token",
-     *     in="query",
-     *     description="jwt token",
-     *     required=true,
+     *         name="id",
+     *         in="path",
+     *         description="file id",
+     *         required=true,
      *     ),
      *     @OA\Response(response="200", description="下載檔案"),
      *     @OA\Response(response="500", description="未預期錯誤")
@@ -140,17 +128,13 @@ class FileController extends Controller
      * @OA\delete(
      *     path="/file/{id}",
      *     summary="移除檔案",
+     *     tags={"file"},
+     *     security={ {"Authorization": {} }},
      *     @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="file id",
-     *     required=true,
-     *     ),
-     *     @OA\Parameter(
-     *     name="token",
-     *     in="query",
-     *     description="jwt token",
-     *     required=true,
+     *         name="id",
+     *         in="path",
+     *         description="file id",
+     *         required=true,
      *     ),
      *     @OA\Response(response="200", description="成功移除檔案"),
      *     @OA\Response(response="500", description="未預期錯誤")

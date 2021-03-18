@@ -13,6 +13,7 @@ class LoginController extends Controller
      * @OA\Post(
      *     path="/login",
      *     summary="登入取得 token",
+     *     tags={"auth"},
      *     @OA\Parameter(
      *     name="email",
      *     in="query",
@@ -52,6 +53,7 @@ class LoginController extends Controller
      * @OA\get(
      *     path="/logout",
      *     summary="註銷 token",
+     *     tags={"auth"},
      *     @OA\Parameter(
      *     name="token",
      *     in="query",
@@ -73,6 +75,7 @@ class LoginController extends Controller
      * @OA\post(
      *     path="/google/login",
      *     summary="google 登入",
+     *     tags={"auth"},
      *     @OA\Parameter(
      *     name="email",
      *     in="query",
